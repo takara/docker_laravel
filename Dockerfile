@@ -42,6 +42,8 @@ ENV LANG ja_JP.UTF-8
 ENV LC_CTYPE ja_JP.UTF-8
 RUN localedef -f UTF-8 -i ja_JP ja_JP.utf8
 
+RUN apt-get -y install imagemagick
+
 COPY asset/000-default.conf /etc/apache2/sites-available/
 
 COPY asset/.bash_profile /root/
