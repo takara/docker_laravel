@@ -1,5 +1,5 @@
 NAME=laravel
-VERSION=v5.5
+VERSION=v5.7
 DOCKER_RUN_OPTIONS= \
 	--privileged \
 	--net=docker-lan \

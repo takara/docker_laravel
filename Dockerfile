@@ -5,19 +5,16 @@ MAINTAINER takara
 WORKDIR /root
 
 RUN apt-get -y update
-RUN apt-get install -y wget
-COPY asset/sources.list /etc/apt/
-RUN wget https://www.dotdeb.org/dotdeb.gpg && \
-    apt-key add dotdeb.gpg && \
-    rm dotdeb.gpg
+RUN apt-get install -y wget apt-transport-https lsb-release ca-certificates
+RUN wget -O /etc/apt/trusted.gpg.d/php.gpg https://packages.sury.org/php/apt.gpg && \
+    echo "deb https://packages.sury.org/php/ $(lsb_release -sc) main" | tee /etc/apt/sources.list.d/php.list
 
 ENV DEBIAN_FRONTEND noninteractive
 RUN apt-get -y update
 RUN apt-get -y install net-tools git make apache2
 RUN apt-get -y install vim curl chkconfig gcc libpcre3-dev unzip locales
-RUN apt-get -y install mysql-server php php-pear php-mysql php-curl php-mbstring php-zip
-#RUN wget http://www.npmjs.org/install.sh --no-check-certificate && sh install.sh && rm install.sh
-#RUN npm install -g gulp
+RUN apt-get -y install mysql-server php7.3 php-pear php7.3-mysql php7.3-curl php7.3-mbstring php7.3-zip \
+    php7.3-cli php7.3-common php7.3-json php7.3-opcache php7.3-readline php7.3-xml
 ENV DEBIAN_FRONTEND dialog
 
 VOLUME /var/lib/mysql
